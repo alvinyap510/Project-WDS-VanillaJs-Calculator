@@ -3,6 +3,7 @@ class Calculator {
     this.previousOperand = prevousOperandOutput;
     this.currentOperand = currentOperandOutput;
     this.operation = undefined;
+    this.justCalculated = false;
   }
 
   clear() {
@@ -15,7 +16,12 @@ class Calculator {
   }
 
   appendDigit(digit) {
-    /* Only allow one dot */
+    /* Clause to avoid appending digits to an answer */
+    if (this.justCalculated === true) {
+      this.currentOperand.innerText = "";
+      this.justCalculated = false;
+    }
+    /* Only allow one dot for decimals allowed to appear */
     if (digit === "." && this.currentOperand.innerText.includes(".")) return;
     /* If original current operand is empty, make it 0. */
     if (digit === "." && this.currentOperand.innerText === "")
@@ -24,6 +30,8 @@ class Calculator {
   }
 
   chooseOperation(operation) {
+    /* Set the just calculated to false to allow further operation */
+    this.justCalculated = false;
     /* If current operand is empty, skip */
     if (this.currentOperand.innerText === "") return;
     if (this.previousOperand.innerText !== "") this.evaluate();
@@ -57,6 +65,8 @@ class Calculator {
     this.operation = undefined;
     this.currentOperand.innerText = result.toString();
     this.previousOperand.innerText = "";
+    /* Clause to avoid appending digits to an answer */
+    this.justCalculated = true;
   }
 }
 
