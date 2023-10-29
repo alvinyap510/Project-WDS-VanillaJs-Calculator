@@ -1,0 +1,107 @@
+*,
+*::before,
+*::after {
+  /* Set the absolute width / height of the element to include content, padding and border */
+  box-sizing: border-box;
+  font-family: sans-serif;
+  font-weight: normal;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(to right, #ecee81, #8ddfcb, #82a0d8, #edb7ed);
+}
+
+.calculator-grid {
+  display: grid;
+  justify-content: center;
+  margin-top: 2rem;
+  /* Create 4 columns, each with the width of 6rem */
+  grid-template-columns: repeat(4, 6rem);
+  /* 
+  Minimum size = 7rem, scale with auto.
+  repeat 5 rows, with each has a height of
+  6rem.
+  */
+  grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
+}
+
+/* 
+Change span-two buttons into taking up 2 spaces
+*/
+.span-two {
+  grid-column: span 2;
+}
+
+/*
+> Only slect children that are direct decendan
+of .calculator-grid
+*/
+.calculator-grid > button {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+/*
+Focus state => buttion / input being focused when click
+or travel with tab etc.
+*/
+.calculator-grid > button:hover,
+.calculator-grid > button:focus {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+/* 
+The output screen of the calculator
+*/
+.output {
+  /* Span from first space to the last space */
+  grid-column: 1 / -1;
+  /* Partial transparent */
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  /* Determine the direction laid out of the flex items */
+  flex-direction: column;
+  /*
+  Flexbox property used to control the alignments of flex items on
+  corss axis (perpendocuilar to the main-axis defined in flex-direction.
+  */
+  align-items: flex-end;
+  /*
+  Alight flex items on the main-axis as determined by flex-direction.
+  Distribute the space evenly between flex-items
+  */
+  justify-content: space-around;
+  padding: 0.5rem;
+
+  /* 
+  Used by CSS to determine how text break and wrap inside an element.
+  break-word => If does not fit, break at the nearest possible character.
+  word-break => allow the breaking in between of words
+  */
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.output .previous-operand {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.5rem;
+}
+
+.output .current-operand {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 2.5rem;
+}
+
+footer {
+  position: absolute;
+  margin: 2rem;
+  bottom: 0;
+  color: rgba(0, 0, 0, 0.5);
+  /* text-align: center; */
+}
